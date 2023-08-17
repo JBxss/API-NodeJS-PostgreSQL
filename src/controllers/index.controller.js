@@ -13,6 +13,12 @@ const getUsers = async (req, res) => {
     res.status(200).json(response.rows);
 }
 
+const getUsersByID = async (req, res) => {
+    const id = req.params.id;
+    const response = await pool.query('SELECT * FROM users WHERE id = $1', [id]);
+    res.status(200).json(response.rows);
+}
+
 const createUsers =  async (req, res) => {
     const { name, email } = req.body;
     const response = await pool.query('INSERT INTO users (name, email) VALUES ($1, $2)', [name, email]);
@@ -26,7 +32,16 @@ const createUsers =  async (req, res) => {
     })
 }
 
+const deleteUsers = async (req, res) => {
+    const id = req.params.id;
+    const response = await pool.query('DELETE FROM users WHERE id = $1', [id]);
+    console.log(response);
+    res.json(`User ${id} Deleted Succesfully`);
+}
+
 module.exports = {
     getUsers,
-    createUsers
+    getUsersByID,
+    createUsers,
+    deleteUsers
 }
