@@ -19,12 +19,16 @@ const registerUsers = async (req, res) => {
     "INSERT INTO auth (username, pass) VALUES ($1, $2) RETURNING id",
     [username, passHash]
   );
-  
+
   const newUserId = response.rows[0].id;
 
-  const token = jwt.sign({ id: newUserId, user: username, password: pass, passHash: passHash }, process.env.SECRET, {
-    expiresIn: 60 * 60 * 24,
-  });
+  const token = jwt.sign(
+    { id: newUserId, user: username, password: pass, passHash: passHash },
+    process.env.SECRET,
+    {
+      expiresIn: 60 * 60 * 24,
+    }
+  );
 
   res.json({
     message: "User Added Succesfully",
@@ -36,24 +40,55 @@ const registerUsers = async (req, res) => {
 };
 
 const profileUsers = async (req, res) => {
+  const token = req.headers["access-token"];
 
-  const token = req.headers['access-token'];
-  if(!token){
+  if (!token) {
     return res.status(401).json({
       auth: false,
-      message: 'No token provided'
-    })
+      message: "No token provided",
+    });
   }
 
   const decoded = jwt.verify(token, process.env.SECRET);
-  console.log(decoded)
-  res.json("me")
 
+  const response = await pool.query("SELECT * FROM auth WHERE id = $1", [
+    decoded.id,
+  ]);
+
+  if (response.rows.length === 0) {
+    return res.status(404).send("No user found");
+  }
+
+  res.status(200).json(response.rows);
 };
 
-const loginUsers = async (req, res) => {};
+const loginUsers = async (req, res) => {
+  const { username, pass } = req.body;
+  const response = await pool.query(
+    "SELECT * FROM auth WHERE username = $1 LIMIT 1",
+    [username]
+  );
+  if (response.rows.length === 0) {
+    return res.status(404).send("The user doesn't exist");
+  }
 
+  const validPassword = await bcrypt.compare(pass, response.rows[0].pass);
+  if (!validPassword) {
+    return res.status(401).json({
+      auth: false,
+      token: null,
+    });
+  }
 
+  const token = jwt.sign({ id: response.rows[0].id }, process.env.SECRET, {
+    expiresIn: 60 * 60 * 24,
+  });
+
+  res.json({
+    auth: true,
+    token,
+  });
+};
 
 module.exports = {
   registerUsers,
