@@ -40,19 +40,8 @@ const registerUsers = async (req, res) => {
 };
 
 const profileUsers = async (req, res) => {
-  const token = req.headers["access-token"];
-
-  if (!token) {
-    return res.status(401).json({
-      auth: false,
-      message: "No token provided",
-    });
-  }
-
-  const decoded = jwt.verify(token, process.env.SECRET);
-
   const response = await pool.query("SELECT * FROM auth WHERE id = $1", [
-    decoded.id,
+    req.userID,
   ]);
 
   if (response.rows.length === 0) {
