@@ -30,8 +30,8 @@ const registerUsers = async (req, res) => {
     }
   );
 
-  res.json({
-    message: "User Added Succesfully",
+  res.status(201).json({
+    message: "User Register Succesfully",
     auth: true,
     body: {
       user: { username, pass, token },
@@ -64,6 +64,7 @@ const loginUsers = async (req, res) => {
   const validPassword = await bcrypt.compare(pass, response.rows[0].pass);
   if (!validPassword) {
     return res.status(401).json({
+      message: "No valid password",
       auth: false,
       token: null,
     });
@@ -73,7 +74,8 @@ const loginUsers = async (req, res) => {
     expiresIn: 60 * 60 * 24,
   });
 
-  res.json({
+  res.status(200).json({
+    message: "Login Succesfully",
     auth: true,
     token,
   });

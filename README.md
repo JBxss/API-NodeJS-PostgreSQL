@@ -1,4 +1,4 @@
-# Gestión de Materiales Reciclables / API-NodeJS-PostgreSQL-JWT
+# API-NodeJS-PostgreSQL-JWT / Gestión de Materiales Reciclables
 
 Esta API RESTful permite gestionar materiales reciclables y recolecciones asociadas. Proporciona operaciones CRUD para materiales y recolecciones, y opcionalmente calcula la ruta óptima de reciclaje.
 
