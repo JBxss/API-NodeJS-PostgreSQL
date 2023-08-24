@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const router = Router();
 
-const { getUsers, getUsersByID, createUsers, updateUsers, deleteUsers } = require('../controllers/index.controller');
+const { getMaterial, getMaterialByID, createMaterial, updateMaterial, deleteMaterial } = require('../controllers/material.controller');
 const { registerUsers, loginUsers, profileUsers} = require('../controllers/auth.controller');
 const verifyToken = require("../controllers/verifyToken");
 
@@ -10,11 +10,11 @@ router.post('/register', registerUsers);
 router.post('/login', loginUsers);
 router.get('/me', verifyToken, profileUsers);
 
-// Users
-router.get('/users', getUsers);
-router.get('/users/:id', getUsersByID);
-router.post('/users', createUsers);
-router.delete('/users/:id', deleteUsers);
-router.put('/users/:id', updateUsers);
+// Materials
+router.get('/materials', verifyToken, getMaterial);
+router.get('/materials/:id', verifyToken, getMaterialByID);
+router.post('/materials', verifyToken, createMaterial);
+router.delete('/materials/:id', verifyToken, deleteMaterial);
+router.put('/materials/:id', verifyToken, updateMaterial);
 
 module.exports = router;
