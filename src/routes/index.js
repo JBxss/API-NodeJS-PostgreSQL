@@ -5,6 +5,7 @@ const { getMaterial, getMaterialByID, createMaterial, updateMaterial, deleteMate
 const { getCollection, getCollectionByID, createCollection, updateCollection, deleteCollection } = require('../controllers/collection.controller');
 const { registerUsers, loginUsers, profileUsers} = require('../controllers/auth.controller');
 const verifyToken = require("../controllers/verifyToken");
+const calculateRoute = require("../controllers/calculateRoute");
 
 // Auth
 router.post('/register', registerUsers);
@@ -24,5 +25,8 @@ router.get('/collections/:id', verifyToken, getCollectionByID);
 router.post('/collections', verifyToken, createCollection);
 router.delete('/collections/:id', verifyToken, deleteCollection);
 router.put('/collections/:id', verifyToken, updateCollection);
+
+// Calculate Recicle
+router.post('/calculate', verifyToken, calculateRoute);
 
 module.exports = router;
