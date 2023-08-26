@@ -34,7 +34,7 @@ La documentación detallada de la API se encuentra disponible en [Postman](https
 
 A continuación se muestra el diagrama de la base de datos utilizada para almacenar los materiales reciclables y las recolecciones:
 
-![Diagrama de la Base de Datos](ruta-al-diagrama.png)
+![Diagrama de la Base de Datos](./Img/diagramaBD.png)
 
 ## Licencia
 
