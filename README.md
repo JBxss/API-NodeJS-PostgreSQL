@@ -24,11 +24,11 @@ Este proyecto consiste en el desarrollo de una API RESTful para la gestión efic
 
 - **Gestión de Materiales y Recolecciones:** Se ofrecen endpoints para crear, leer, actualizar y eliminar materiales reciclables y recolecciones asociadas. Los materiales tienen atributos como nombre, peso y valor, mientras que las recolecciones incluyen el material reciclado, la cantidad recolectada y la fecha.
 
-- **Cálculo de Ruta Óptima de Reciclaje (opcional):** La API ofrece un endpoint `/calculate-route` que acepta una lista de materiales y un límite de peso total. Calcula la ruta óptima de reciclaje que maximiza el valor total de los materiales sin exceder el límite de peso.
+- **Cálculo de Ruta Óptima de Reciclaje:** La API ofrece un endpoint `/calculate` que acepta una lista de materiales y un límite de peso total. Calcula la ruta óptima de reciclaje que maximiza el valor total de los materiales sin exceder el límite de peso.
 
 ## Documentación
 
-La documentación detallada de la API se encuentra disponible en [Swagger Hub](https://link-a-la-documentacion.com).
+La documentación detallada de la API se encuentra disponible en [Postman](https://documenter.getpostman.com/view/25921242/2s9Y5YRMeJ).
 
 ## Diagrama de la Base de Datos
 
