@@ -7,26 +7,27 @@ const { registerUsers, loginUsers, profileUsers} = require('../controllers/auth.
 const verifyToken = require("../controllers/verifyToken");
 const calculateRoute = require("../controllers/calculateRoute");
 
-// Auth
+// Definir rutas y asociar controladores
+// Rutas de autenticación
 router.post('/register', registerUsers);
 router.post('/login', loginUsers);
 router.get('/me', verifyToken, profileUsers);
 
-// Materials
+// Rutas relacionadas con materiales
 router.get('/materials', verifyToken, getMaterial);
 router.get('/materials/:id', verifyToken, getMaterialByID);
 router.post('/materials', verifyToken, createMaterial);
 router.delete('/materials/:id', verifyToken, deleteMaterial);
 router.put('/materials/:id', verifyToken, updateMaterial);
 
-// Collections
+// Rutas relacionadas con colecciones
 router.get('/collections', verifyToken, getCollection);
 router.get('/collections/:id', verifyToken, getCollectionByID);
 router.post('/collections', verifyToken, createCollection);
 router.delete('/collections/:id', verifyToken, deleteCollection);
 router.put('/collections/:id', verifyToken, updateCollection);
 
-// Calculate Recicle
+// Ruta para el cálculo de reciclaje
 router.post('/calculate', verifyToken, calculateRoute);
 
 module.exports = router;

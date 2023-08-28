@@ -1,5 +1,6 @@
 const { Pool } = require("pg");
 
+// Configurar el pool de conexiones a la base de datos PostgreSQL
 const pool = new Pool({
   host: "localhost",
   user: "postgres",
@@ -8,17 +9,20 @@ const pool = new Pool({
   port: "5432",
 });
 
+// Controlador para obtener todos los materiales
 const getMaterial = async (req, res) => {
   const response = await pool.query("SELECT * FROM material");
   res.status(200).json(response.rows);
 };
 
+// Controlador para obtener un material por su ID
 const getMaterialByID = async (req, res) => {
   const id = req.params.id;
   const response = await pool.query("SELECT * FROM material WHERE id = $1", [id]);
   res.status(200).json(response.rows);
 };
 
+// Controlador para crear un nuevo material
 const createMaterial = async (req, res) => {
   const { nombre, peso, valor } = req.body;
   const response = await pool.query(
@@ -35,6 +39,7 @@ const createMaterial = async (req, res) => {
   });
 };
 
+// Controlador para actualizar un material por su ID
 const updateMaterial = async (req, res) => {
   const id = req.params.id;
   const { nombre, peso, valor } = req.body;
@@ -51,6 +56,7 @@ const updateMaterial = async (req, res) => {
   });
 };
 
+// Controlador para eliminar un material por su ID
 const deleteMaterial = async (req, res) => {
   const id = req.params.id;
   const response = await pool.query("DELETE FROM material WHERE id = $1", [id]);
